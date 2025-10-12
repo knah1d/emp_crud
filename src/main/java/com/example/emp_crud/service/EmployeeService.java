@@ -10,8 +10,13 @@ import java.util.List;
 @Service
 public class EmployeeService {
 
-    @Autowired
-    private JpaEmployeeRepository jpaEmployeeRepository;
+
+    private final JpaEmployeeRepository jpaEmployeeRepository;
+
+    public EmployeeService(JpaEmployeeRepository jpaEmployeeRepository) {
+        this.jpaEmployeeRepository = jpaEmployeeRepository;
+    }
+
 
     public List<Employee> getEmployee() {
         return jpaEmployeeRepository.findAll();

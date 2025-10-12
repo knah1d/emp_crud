@@ -1,15 +1,31 @@
-package com.example.emp_crud.domain.model;
+package com.example.emp_crud.model;
 
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import org.springframework.stereotype.Component;
+
+@Component
+@Entity
+@Table(name = "Employee")
 public class Employee {
 
+    @Id
+    @Column(name = "empId")
     private Long empId;
+    @Column(name = "name")
     private String name;
+    @Column(name = "email")
     private String email;
+    @Column(name = "jobTitle")
     private String jobTitle;
+    @Column(name = "department")
     private String  department;
 //    private LocalDateTime createdAt;
 //    private LocalDateTime updatedAt;
-
+    public Employee() {}
     public Employee(Long empId, String name, String email, String jobTitle, String department) {
         this.empId = empId;
         this.name = name;

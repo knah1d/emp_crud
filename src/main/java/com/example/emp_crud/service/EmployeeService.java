@@ -1,27 +1,31 @@
-package com.example.emp_crud.application.service;
+package com.example.emp_crud.service;
 
-import com.example.emp_crud.domain.model.Employee;
-import com.example.emp_crud.domain.repository.EmployeeRepository;
-import com.example.emp_crud.domain.service.EmployeeService;
+import com.example.emp_crud.model.Employee;
+import com.example.emp_crud.repository.JpaEmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
-import java.util.Optional;
 
 @Service
-public class EmployeeUseCase {
-    private final EmployeeRepository employeeRepository;
-    private final EmployeeService employeeService;
+public class EmployeeService {
 
-    public EmployeeUseCase(EmployeeRepository employeeRepository, EmployeeService employeeService) {
-        this.employeeRepository = employeeRepository;
-        this.employeeService = employeeService;
-    }
+    @Autowired
+    private JpaEmployeeRepository jpaEmployeeRepository;
 
-    public Employee createEmployee(Employee employee) {
-        employeeService.validateEmployee(employee);
-        return employeeRepository.save(employee);
+    public List<Employee> getEmployee() {
+        return jpaEmployeeRepository.findAll();
     }
-    public Optional<Employee> getEmployee(Long id) {
-        return employeeRepository.findById(id);
+    public Employee getEmployeeById(Long id) {
+        return jpaEmployeeRepository.findById(id).orElse(null);
+    }
+    public void addEmployee(Employee employee) {
+        jpaEmployeeRepository.save(employee);
+    }
+    public void updateEmployee(Employee employee) {
+        jpaEmployeeRepository.save(employee);
+    }
+    public void deleteEmployee(Long id) {
+        jpaEmployeeRepository.deleteById(id);
     }
 }

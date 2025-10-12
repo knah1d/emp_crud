@@ -20,7 +20,7 @@ public class Employee {
 //        this.updatedAt = LocalDateTime.now();
     }
 
-    // getters and setters
+
 
     public Long getEmpId() {
         return empId;

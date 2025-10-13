@@ -1,7 +1,7 @@
 package com.example.emp_crud.controller;
 
 
-import com.example.emp_crud.service.EmployeeService;
+import com.example.emp_crud.service.IEmployeeService;
 import com.example.emp_crud.model.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +14,11 @@ import java.util.Optional;
 @CrossOrigin("*")
 public class EmployeeController {
 
-    @Autowired
-    EmployeeService employeeService;
+    private final IEmployeeService employeeService;
+
+    public EmployeeController(IEmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     @GetMapping
     public List<Employee> getAllEmployees() {
@@ -28,9 +31,8 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public String addEmployee(@RequestBody Employee employee) {
+    public void addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
-        return "Employee added successfully";
     }
 
     @PutMapping

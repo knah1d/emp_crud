@@ -8,7 +8,7 @@ import java.util.List;
 
 
 @Service
-public class EmployeeService {
+public class EmployeeService implements IEmployeeService {
 
 
     private final JpaEmployeeRepository jpaEmployeeRepository;
@@ -17,20 +17,25 @@ public class EmployeeService {
         this.jpaEmployeeRepository = jpaEmployeeRepository;
     }
 
-
+    @Override
     public List<Employee> getEmployee() {
-        return jpaEmployeeRepository.findAll();
+        return jpaEmployeeRepository.findAllActiveEmployees();
     }
+    @Override
     public Employee getEmployeeById(Long id) {
         return jpaEmployeeRepository.findById(id).orElse(null);
     }
+    @Override
     public void addEmployee(Employee employee) {
+        employee.setIsDeleted(0);
         jpaEmployeeRepository.save(employee);
     }
+    @Override
     public void updateEmployee(Employee employee) {
         jpaEmployeeRepository.save(employee);
     }
+    @Override
     public void deleteEmployee(Long id) {
-        jpaEmployeeRepository.deleteById(id);
+        jpaEmployeeRepository.deleteEmployee(id);
     }
 }

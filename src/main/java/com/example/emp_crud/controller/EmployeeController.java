@@ -3,11 +3,9 @@ package com.example.emp_crud.controller;
 
 import com.example.emp_crud.service.IEmployeeService;
 import com.example.emp_crud.model.Employee;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/employees")
@@ -31,17 +29,19 @@ public class EmployeeController {
     }
 
     @PostMapping
-    public void addEmployee(@RequestBody Employee employee) {
+    public String addEmployee(@RequestBody Employee employee) {
         employeeService.addEmployee(employee);
+        return "Employee added successfully";
     }
 
-    @PutMapping
-    public void updateEmployee(@RequestBody Employee employee) {
-        employeeService.updateEmployee(employee);
+    @PutMapping("/{id}")
+    public Employee updateEmployee(@PathVariable Long id, @RequestBody Employee updatedEmployee) {
+        return employeeService.updateEmployee(id, updatedEmployee);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteEmployee(@PathVariable Long id) {
+    public String deleteEmployee(@PathVariable Long id) {
         employeeService.deleteEmployee(id);
+        return "Employee deleted successfully";
     }
 }

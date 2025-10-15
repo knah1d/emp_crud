@@ -1,1 +1,1 @@
-select * from EMPLOYEE;
+select * from EDUCATION;

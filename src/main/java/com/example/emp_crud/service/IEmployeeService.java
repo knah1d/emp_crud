@@ -7,6 +7,6 @@ public interface IEmployeeService {
     public List<Employee> getEmployee();
     public Employee getEmployeeById(Long id);
     public void addEmployee(Employee employee);
-    public void updateEmployee(Employee employee);
+    public Employee updateEmployee(Long id, Employee employee);
     public void deleteEmployee(Long id);
 }

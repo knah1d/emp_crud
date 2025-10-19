@@ -2,6 +2,9 @@ package com.example.emp_crud.service;
 
 import com.example.emp_crud.model.Employee;
 import com.example.emp_crud.repository.JpaEmployeeRepository;
+
+import jakarta.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 import java.util.List;
 
@@ -18,7 +21,7 @@ public class EmployeeService implements IEmployeeService {
 
     @Override
     public List<Employee> getEmployee() {
-        return jpaEmployeeRepository.findAllActiveEmployees();
+        return jpaEmployeeRepository.findAll();
     }
     @Override
     public Employee getEmployeeById(Long id) {
@@ -26,11 +29,17 @@ public class EmployeeService implements IEmployeeService {
     }
     @Override
     public void addEmployee(Employee employee) {
-        employee.setIsDeleted(0);
         employee.getEducations().forEach(edu -> edu.setEmployee(employee));
         jpaEmployeeRepository.save(employee);
     }
+
     @Override
+    public Boolean existsByEmail(String email) {
+        return jpaEmployeeRepository.existsByEmail(email);
+    }
+
+    @Override
+    @Transactional
     public Employee updateEmployee(Long id, Employee updatedData) {
         Employee existingEmployee = jpaEmployeeRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Employee not found with id: " + id));
@@ -39,7 +48,7 @@ public class EmployeeService implements IEmployeeService {
         existingEmployee.setEmail(updatedData.getEmail());
         existingEmployee.setJobTitle(updatedData.getJobTitle());
         existingEmployee.setDepartment(updatedData.getDepartment());
-        existingEmployee.setIsDeleted(updatedData.getIsDeleted());
+
 
         if (updatedData.getEducations() != null) {
             existingEmployee.getEducations().clear();
@@ -49,9 +58,14 @@ public class EmployeeService implements IEmployeeService {
 
         return jpaEmployeeRepository.save(existingEmployee);
     }
+    
+    @Override
+    public List<Employee> getEmployeeByName(String name) {
+        return jpaEmployeeRepository.findByNameContaining(name);
+    }
 
     @Override
     public void deleteEmployee(Long id) {
-        jpaEmployeeRepository.deleteEmployee(id);
+        jpaEmployeeRepository.deleteById(id);
     }
 }

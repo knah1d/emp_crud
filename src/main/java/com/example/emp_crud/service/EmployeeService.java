@@ -65,7 +65,7 @@ public class EmployeeService implements IEmployeeService {
     }
 
     @Override
-    public void deleteEmployee(Long id) {
+    public void deleteById(Long id) {
         jpaEmployeeRepository.deleteById(id);
     }
 }

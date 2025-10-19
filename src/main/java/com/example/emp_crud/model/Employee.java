@@ -18,22 +18,22 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "Employee")
-@SQLDelete(sql = "UPDATE Employee SET IS_DELETED = 1 WHERE empId = ?")
-@SQLRestriction("IS_DELETED = 0")
+@SQLDelete(sql = "UPDATE Employee SET is_deleted = 1 WHERE emp_id = ?")
+@SQLRestriction("is_deleted = 0")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "empId", unique = true)
+    @Column(name = "emp_id", unique = true)
     private Long empId;
     @Column(name = "name")  
     private String name;
     @Column(name = "email")
     private String email;
-    @Column(name = "jobTitle")
+    @Column(name = "job_title")
     private String jobTitle;
     @Column(name = "department")
     private String  department;
-    @Column(name = "IS_DELETED")
+    @Column(name = "is_deleted")
     private int isDeleted;
 
     @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL, orphanRemoval = true)

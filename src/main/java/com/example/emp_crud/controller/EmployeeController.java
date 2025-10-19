@@ -50,8 +50,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public String deleteEmployee(@PathVariable Long id) {
-        employeeService.deleteEmployee(id);
+    public String deleteById(@PathVariable Long id) {
+        employeeService.deleteById(id);
         return "Employee deleted successfully";
     }
 }

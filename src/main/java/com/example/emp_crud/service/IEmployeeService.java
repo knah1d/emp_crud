@@ -8,7 +8,7 @@ public interface IEmployeeService {
     public Employee getEmployeeById(Long id);
     public void addEmployee(Employee employee);
     public Employee updateEmployee(Long id, Employee employee);
-    public void deleteEmployee(Long id);
+    public void deleteById(Long id);
     public List<Employee> getEmployeeByName(String name);
     public Boolean existsByEmail(String email);
 }
